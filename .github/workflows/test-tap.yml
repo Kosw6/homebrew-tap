@@ -1,0 +1,24 @@
+name: Test Homebrew Tap
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tap Kosw6/tap
+        run: brew tap Kosw6/tap
+
+      - name: Install loadtest-orchestrator
+        run: brew install loadtest-orchestrator
+
+      - name: Verify installation
+        run: |
+          which loadtest-orchestrator
+          loadtest-orchestrator --help || true
